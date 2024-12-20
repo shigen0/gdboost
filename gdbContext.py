@@ -46,7 +46,7 @@ def disassemblyContext():
 def gdbContext():
     context = {}
     
-    context.update(frameContext)
+    context.update(frameContext())
     context["registers"] = registerContext()
     context["breakpoints"] = breakpointContext()
     context["disassembly"] = disassemblyContext()
