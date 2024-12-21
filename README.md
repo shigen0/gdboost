@@ -38,5 +38,6 @@ This script retrieves debugging information from GDB and sends it to the LLM to 
 
 ## Notes
 
+- Feel free to reach out if you encounter any bug
 - Will update the robustness of the code for handling cases and errors, that's a first version ;)
 - There may be an inconsistency between your python version and gdb python version, you should fix it manually
