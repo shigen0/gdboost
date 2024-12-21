@@ -4,7 +4,7 @@ Reverse x86 binaries with GDB LLM boosted ⚡
 
 ## Setup
 
-`git clone https://github.com/shigen0/gdboost`
+`git clone https://github.com/shigen0/gdboost`  
 `sudo ./setup.sh --key YOUR_OPENROUTER_KEY`
 
 ## Usage
