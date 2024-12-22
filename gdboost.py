@@ -3,6 +3,18 @@ import json
 from openai import OpenAI
 
 
+def loadConfig():
+    try:
+        with open("config.json", "r") as config_file:
+            config = json.load(config_file)
+            clarity_response = config.get("clarityResponse", 0)
+            llm_model = config.get("llmModel", "openai/gpt-3.5-turbo")
+            return clarity_response, llm_model
+    except Exception as e:
+        print(f"Error reading config.json: {e}")
+        return 0, "openai/gpt-3.5-turbo"
+
+
 def frameContext():
     try:
         frame = gdb.selected_frame()
@@ -105,6 +117,7 @@ class LLMCommand(gdb.Command):
             print("Error: LLM client not initialized.")
             return
 
+        clarityResponse, llm_model = loadConfig()
         context = gdbContext()
 
         base_prompt = """
@@ -120,8 +133,13 @@ class LLMCommand(gdb.Command):
         User query: {query}
         """
 
+        if clarityResponse == 0:
+            prompt = "Provide a concise answer.\n\n" + base_prompt
+        else:
+            prompt = "Provide a detailed answer.\n\n" + base_prompt
+
         try:
-            full_prompt = base_prompt.format(
+            full_prompt = prompt.format(
                 frame_name=context["frame_name"],
                 pc=context["pc"],
                 locals=json.dumps(context["locals"], indent=2),
@@ -132,7 +150,7 @@ class LLMCommand(gdb.Command):
             )
 
             completion = self.client.chat.completions.create(
-                model="openai/gpt-3.5-turbo",
+                model=llm_model,
                 messages=[{"role": "user", "content": full_prompt}],
             )
 
