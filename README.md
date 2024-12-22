@@ -10,7 +10,11 @@ Reverse x86 binaries with GDB LLM boosted ⚡
 ## Usage
 
 Launch gdb with your x86 64 binary and start talking with the LLM asking for example : `(gdb) llm Hey ! Can you give me the value of eax register please ?`.  
-Of course you should at least run the binary if you wanna see the information below.
+Of course you should at least run the binary if you wanna see the information below.  
+
+You are also able to personalize your experience with the settings in config.json :
+- put clarityResponse value to 0 if you want concise interactions, 1 otherwise
+- define the llm model you wanna use by changing llmModel value
 
 ## How it works
 
