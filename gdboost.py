@@ -9,7 +9,10 @@ def loadConfig():
             config = json.load(config_file)
             clarity_response = config.get("clarityResponse", 0)
             llm_model = config.get("llmModel", "openai/gpt-3.5-turbo")
+            if clarity_response not in (0, 1):
+                clarity_response = 0
             return clarity_response, llm_model
+        
     except Exception as e:
         print(f"Error reading config.json: {e}")
         return 0, "openai/gpt-3.5-turbo"
